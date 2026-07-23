@@ -1,0 +1,48 @@
+1. SQL or NoSQL
+
+A. AI ticket history with foreign key to users:
+SQL is the best choice because the ticket history has a relationship with the users table through a foreign key, and SQL databases efficiently manage relationships using joins and constraints.
+
+B. Real-time chat message stream:
+NoSQL is the best choice because chat messages are generated continuously, require very fast read and write operations, and NoSQL databases can scale horizontally to handle large volumes of data.
+
+C. Healthcare patient records:
+SQL is the best choice because healthcare records require high accuracy, data consistency, security, and ACID transactions to ensure reliable storage of patient information.
+
+D. Product catalog with variable attributes:
+NoSQL is the best choice because different products may have different attributes, and NoSQL databases provide a flexible schema that can easily accommodate varying data structures.
+
+E. Financial transactions with rollback:
+SQL is the best choice because financial transactions require ACID properties, especially atomicity and consistency, to ensure that transactions can be rolled back if an error occurs.
+
+2. ticket table schema:
+
+CREATE TABLE tickets (
+    ticket_id BIGSERIAL PRIMARY KEY,
+
+    title VARCHAR(200) NOT NULL,
+
+    priority VARCHAR(10) NOT NULL
+        CHECK (priority IN ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL')),
+
+    status VARCHAR(20) NOT NULL DEFAULT 'OPEN'
+        CHECK (status IN ('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED')),
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+3. ACID in context:
+Atomicity would be violated if the application crashes during a bulk status update. A transaction should either complete fully or not at all. If a crash occurs, the database should roll back all partial updates, and the bulk update should be retried when the application restarts.
+
+4. Why does data persist after server restart
+Before using the ORM, data was stored in an in-memory dictionary (_db), so it was lost whenever the FastAPI server restarted. With SQLAlchemy ORM, the data is stored in PostgreSQL on disk, so even after running uvicorn --reload, the application reconnects to the database and GET /tickets returns the saved data.
+
+5. Why does layer separation matter?
+
+Keeping business logic in the service layer and HTTP logic in the router makes the code reusable in CLI tools, background workers, or other applications. It also allows you to unit test the business rules without starting FastAPI, making testing faster and easier.
+
+6. /health vs /ready
+
+/health checks whether the application is running, so it can return 200 OK even if the database is down. /ready checks whether the application can serve requests, so it returns 503 Service Unavailable when the database is unreachable, causing the load balancer to stop sending traffic only to the affected instance while healthy instances continue serving requests.

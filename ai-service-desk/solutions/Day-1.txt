@@ -1,0 +1,28 @@
+HTTP method and auth:
+
+Create a ticket-POST
+Get all tickets-GET
+Update ticket -PUT
+Remove a ticket-DELETE
+Change priority only-PATCH
+
+client:
+credentials POST request 
+waits for the response
+then it receives 200 ok with JWT 
+And stores jwt in cookies or localstorage
+attaches token header for all other request
+ 
+server:
+server receives post request
+and verify passowrd
+then creates jwt
+and returns response
+
+
+framework choice:
+
+1. HR Portal- Django: Django is ideal because it provides built-in authentication, an admin panel, and email support out of the box.
+2. AI Summarization API - FastAPI: FastAPI is best because it is designed for building high-performance APIs with automatic validation and documentation.
+3.  Hackathon Prototype - Flask: Flask is suitable because it is lightweight and enables rapid development with minimal setup.
+4. E-commerce with Complex DB - Django: Django is the best choice because its powerful ORM and built-in features efficiently handle complex database-driven applications.
