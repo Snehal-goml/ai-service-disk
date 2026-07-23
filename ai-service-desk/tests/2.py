@@ -1,8 +1,5 @@
-"""
-Tests for endpoint: GET /health
-"""
-import pytest
 
+import pytest
 
 def test_health_returns_200(client):
     r = client.get("/health")
@@ -25,7 +22,6 @@ def test_health_has_x_response_time(client):
 
 
 def test_health_no_db_call(client):
-    """Health endpoint should be lightweight."""
     r = client.get("/health")
     assert r.elapsed.total_seconds() < 2
 

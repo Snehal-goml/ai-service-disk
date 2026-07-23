@@ -1,6 +1,4 @@
-"""
-Tests for endpoints: POST /tickets  (Create ticket)
-"""
+
 import pytest
 
 

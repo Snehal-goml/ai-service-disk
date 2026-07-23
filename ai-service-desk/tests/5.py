@@ -1,6 +1,4 @@
-"""
-Tests for endpoint: POST /tickets/{ticket_id}/close  (Close ticket)
-"""
+
 import pytest
 
 

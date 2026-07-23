@@ -1,6 +1,4 @@
-"""
-Tests for endpoints: GET, PUT, DELETE /tickets/{ticket_id}
-"""
+
 import pytest
 
 
@@ -13,7 +11,6 @@ def test_get_ticket_returns_200(client):
     tid = _create_ticket(client)
     r = client.get(f"/tickets/{tid}")
     assert r.status_code == 200
-
 
 def test_get_ticket_returns_correct_id(client):
     tid = _create_ticket(client)
