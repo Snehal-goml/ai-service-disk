@@ -11,10 +11,13 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "sqlalchemy>=2.0.51",
     "asyncpg>=0.29.0",
+    "boto3>=1.43.54",
 ]
 
 [tool.pytest.ini_options]
-python_files = ["1.py", "2.py", "3.py", "4.py", "5.py", "conftest.py"]
+python_files = ["test_1.py", "test_2.py", "test_3.py", "test_4.py", "test_5.py", "conftest.py"]
+asyncio_mode = "auto"
+
 
 [dependency-groups]
 dev = [

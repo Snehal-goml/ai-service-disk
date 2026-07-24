@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class TicketCreate(BaseModel):
@@ -28,20 +28,3 @@ class TicketOut(BaseModel):
     updated_at: datetime
 
     model_config = {"from_attributes": True}
-
-
-class SummarizeRequest(BaseModel):
-    ticket_description: str
-
-
-class SummarizeResponse(BaseModel):
-    summary: str
-    suggested_response: str
-
-class SummarizeRequest(BaseModel):
-    ticket_description: str = Field(min_length=10, max_length=5_000)
- 
- 
-class SummarizeResponse(BaseModel):
-    summary: str
-    suggested_response: str
