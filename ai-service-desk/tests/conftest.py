@@ -2,10 +2,17 @@ import httpx
 import pytest
 import pytest_asyncio
 
-from app.core.database import AsyncSessionLocal
+from app.core.database import AsyncSessionLocal, engine, Base
 from app.services.ticket_service import TicketService
 
 BASE_URL = "http://127.0.0.1:8000"
+
+
+@pytest_asyncio.fixture(scope="session", autouse=True)
+async def setup_database():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield
 
 
 @pytest.fixture

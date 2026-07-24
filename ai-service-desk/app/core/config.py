@@ -5,7 +5,9 @@ class Settings(BaseSettings):
     APP_NAME: str = "AI Service Desk"
     API_VERSION: str = "v1"
     DEBUG: bool = True
-    DATABASE_URL: str = "sqlite+aiosqlite:///./servicedesk.db"
+    DATABASE_URL: str = (
+        "postgresql+asyncpg://postgres:snehal@127.0.0.1:5432/servicedesk"
+    )
     aws_secret_access_key: str = "demo-key"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
